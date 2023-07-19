@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -45,10 +46,15 @@ public class UserController {
     @GetMapping("/user")
     public List<User> getAllUser()
     {
-        List<User> users = userService.getAllUser();
         log.info("All users are listed.");
 
-        return users;
+        return userService.getAllUser();
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id)
+    {
+        return new ResponseEntity<>(userService.findUserById(id),HttpStatus.OK);
     }
 
 
@@ -66,6 +72,20 @@ public class UserController {
                 .header("isUserDeleted", "true")
                 .body(response);
     }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id,@RequestBody User user) {
+
+        User userObject = userService.findUserById(id);
+
+        if (userObject != null) return new ResponseEntity<>(userService.updateUser(userObject, user), HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+
+
 
 
 
