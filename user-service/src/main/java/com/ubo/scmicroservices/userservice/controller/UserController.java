@@ -20,7 +20,6 @@ public class UserController {
 
     private UserService userService;
 
-    @Autowired
     public UserController(UserService userService)
     {
         this.userService = userService;
@@ -61,8 +60,9 @@ public class UserController {
     @DeleteMapping("/user/{id}")
     public ResponseEntity<Response> deleteUser(@PathVariable Long id)
     {
-        Long userIdToBeDeleted = userService.deleteUserById(id);
-        log.info("User with ID " + userIdToBeDeleted + " successfully deleted.");
+        log.info("User with ID " + id + " successfully deleted.");
+
+        userService.deleteUserById(id);
 
         Response response = new Response();
         response.setStatusCode("200");

@@ -17,7 +17,6 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -33,12 +32,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Long deleteUserById(Long id)
+    public void deleteUserById(Long id)
     {
-        userRepository.deleteById(id);
+        User user = findUserById(id);
 
-        return id;
+        if (user != null) userRepository.deleteById(id);
+
+        throw new UserNotFoundException("User with ID: " + id + " is not found.");
     }
+
 
     public User updateUser(User userObject, User user)
     {
