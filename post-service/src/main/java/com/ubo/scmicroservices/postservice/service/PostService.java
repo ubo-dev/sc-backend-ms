@@ -5,13 +5,11 @@ import com.ubo.scmicroservices.postservice.exception.PostNotFoundException;
 import com.ubo.scmicroservices.postservice.model.entity.Post;
 import com.ubo.scmicroservices.postservice.repository.PostRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 @Service
 @Slf4j
@@ -49,26 +47,9 @@ public class PostService
         return postRepository.findAll();
     }
 
-    public List<Post> getAllPostOfUser(Long userId) {
-
-        List<Post> list = getAllPosts();
-
-        Predicate<? super Post> predicate = post -> list.stream().map(post1 -> post.getUserId().equals(userId)).isParallel();
-        Optional<Post> optional = list.stream().filter(predicate).findFirst();
-
-        if (optional.isPresent())
-        {
-            log.info("All posts of the user with ID: " + userId + " are listed.");
-            return postRepository.getPostByUserId(userId);
-        }
-
-        throw new PostNotFoundException("User with ID: " + userId + " has no post.");
-    }
-
 
     public Post updatePost(Post postObject, Post post) {
 
-        postObject.setUserId(post.getUserId());
         postObject.setDescription(post.getDescription());
         postObject.setLikeNumber(post.getLikeNumber());
         postObject.setComment(post.getComment());
@@ -76,6 +57,11 @@ public class PostService
         postObject.setUpdatedBy(ScConstants.USER_ROLE);
 
         return postRepository.save(postObject);
+    }
+
+    public void deletePostsAfterId(Long id)
+    {
+        postRepository.deleteAllByPostIdAfter(id);
     }
 
     public void deletePostById(Long id) {

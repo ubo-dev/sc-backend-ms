@@ -3,13 +3,13 @@ package com.ubo.scmicroservices.postservice.controller;
 import com.ubo.scmicroservices.postservice.model.Response;
 import com.ubo.scmicroservices.postservice.model.entity.Post;
 import com.ubo.scmicroservices.postservice.service.PostService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.function.Predicate;
+
 
 @RestController
 public class PostController {
@@ -30,10 +30,7 @@ public class PostController {
         return postService.getPostById(id);
     }
 
-    @GetMapping("/posts/{userId}")
-    public List<Post> getAllPostOfUser(@PathVariable Long userId) {
-        return postService.getAllPostOfUser(userId);
-    }
+
 
     @PostMapping("/post")
     public ResponseEntity<Response> createPost(@Valid @RequestBody Post post)
@@ -74,6 +71,15 @@ public class PostController {
                 .status(HttpStatus.OK)
                 .header("isPostDeleted","true")
                 .body(response);
+    }
+
+    @DeleteMapping("post/deleteAfter/{id}")
+    @Transactional
+    public ResponseEntity<Post> deleteAfterId(@PathVariable Long id)
+    {
+        postService.deletePostsAfterId(id);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
