@@ -16,7 +16,7 @@ public class Comment extends BaseEntity
     @Column(name = "comment_description")
     private String commentDescription;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 

@@ -48,15 +48,10 @@ public class PostService
     }
 
 
-    public Post updatePost(Post postObject, Post post) {
-
-        postObject.setDescription(post.getDescription());
-        postObject.setLikeNumber(post.getLikeNumber());
-        postObject.setComment(post.getComment());
-        postObject.setUpdatedAt(LocalDateTime.now());
-        postObject.setUpdatedBy(ScConstants.USER_ROLE);
-
-        return postRepository.save(postObject);
+    public Post updatePost(Post post) {
+        post.setUpdatedAt(LocalDateTime.now());
+        post.setUpdatedBy(ScConstants.USER_ROLE);
+        return postRepository.save(post);
     }
 
     public void deletePostsAfterId(Long id)

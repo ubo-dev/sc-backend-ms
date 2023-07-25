@@ -54,7 +54,7 @@ public class PostController {
     {
         Post postObject = postService.getPostById(id);
 
-        if (postObject != null) return new ResponseEntity<>(postService.updatePost(postObject,post),HttpStatus.OK);
+        if (postObject != null) return new ResponseEntity<>(postService.updatePost(post),HttpStatus.OK);
 
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
