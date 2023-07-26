@@ -12,7 +12,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "user_details")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class User extends BaseEntity
 {
      /*

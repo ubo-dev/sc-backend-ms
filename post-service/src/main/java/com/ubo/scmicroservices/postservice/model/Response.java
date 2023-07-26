@@ -1,13 +1,11 @@
 package com.ubo.scmicroservices.postservice.model;
 
-import com.ubo.scmicroservices.postservice.model.entity.Post;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Response
 {
     private String statusCode;

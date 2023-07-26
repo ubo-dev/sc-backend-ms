@@ -1,13 +1,16 @@
 package com.ubo.scmicroservices.postservice.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 
 @Entity(name = "post")
 @Table(name = "post")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Post extends BaseEntity {
 
     @Id

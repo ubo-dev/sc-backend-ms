@@ -1,11 +1,14 @@
 package com.ubo.scmicroservices.postservice.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
 @Table(name = "comment")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Comment extends BaseEntity
 {
     @Id
