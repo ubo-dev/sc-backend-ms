@@ -12,6 +12,7 @@ services:
       - naming-server
     environment:
       EUREKA.CLIENT.SERVICEURL.DEFAULTZONE: http://localhost:8761/eureka
+      MANAGEMENT.ZIPKIN.TRACING.ENDPOINT: http://zipkin-server:9411/api/v2/spans
   
   post-service:
     image: ubovic/scms-post-service:0.0.1-SNAPSHOT
